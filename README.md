@@ -3,8 +3,9 @@
 # install
 $ composer install
 
-# setting .env
-$ vi .env
+# Set .env for your environment
+$ cp .env.sample .env
+edit .env
 
 # use ex. get InstanceList By SecurityGroupId
 $ php handler.php {security_group_id} {target_key}
