@@ -4,7 +4,7 @@
 $ composer install
 
 # Set .env for your environment
-$ cp .env.sample .env
+$ cp .env.sample .env　　
 edit .env
 
 # use ex. get InstanceList By SecurityGroupId
