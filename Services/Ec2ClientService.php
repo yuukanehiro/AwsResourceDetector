@@ -34,6 +34,13 @@ class Ec2ClientService
         ]);
     }
 
+    /**
+     * バリデーション
+     *
+     * @param string $secrutiy_group_id
+     * @param string $target_key
+     * @return void
+     */
     private static function _validate(string $security_group_id, string $target_key): bool
     {
         if (!isset($security_group_id) || !isset($target_key)) {
@@ -83,6 +90,13 @@ class Ec2ClientService
         return array_values(array_unique($response));
     }
 
+    /**
+     * EC2情報をパース
+     *
+     * @param string $secrutiy_group_id
+     * @param array $data
+     * @return ?string
+     */
     private static function _parseTargetValue(string $target_key, array $data): ?string
     {
         foreach ($data[0] as $instance_key => $value) {
