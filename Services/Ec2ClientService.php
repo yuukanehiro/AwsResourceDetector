@@ -49,6 +49,11 @@ class Ec2ClientService
         return true;
     }
 
+    public function exec(string $security_group_id, string $target_key)
+    {
+        return self::getListBySecurityGroupIdAndKey($security_group_id, $target_key);
+    }
+
     /**
      * セキュリティグループ idで指定してEC2の指定された値を配列で返却
      *

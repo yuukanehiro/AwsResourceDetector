@@ -9,7 +9,10 @@ $ cp .env.sample .env
 edit .env
 
 # use ex. get InstanceList By SecurityGroupId
-$ php handler.php {security_group_id} {target_key}
+$ php handler.php {service_alias_name} {security_group_id} {target_key}
   
-ex.  
-$ php handler.php sg-99999xyz PrivateDnsName
+ex. service alias  
+"ec2"
+  
+ex. command
+$ php handler.php ec2 sg-99999xyz PrivateDnsName
