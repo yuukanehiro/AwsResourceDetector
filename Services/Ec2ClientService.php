@@ -65,8 +65,9 @@ class Ec2ClientService
     {
         // バリデーション
         if (self::_validate($security_group_id, $target_key)) {
-            [];
+            return [];
         }
+
         $data = self::$_client->describeInstances([
             'Filters' => [
                 [
@@ -77,11 +78,11 @@ class Ec2ClientService
                 ],
             ],
         ]);
-
-        $response = [];
         if (!isset($data["Reservations"])) {
             return [];
         }
+
+        $response = [];
         foreach ($data["Reservations"] as $datum) {
             foreach ($datum as $reservation_key => $item) {
                 if ($reservation_key === "Instances" &&
