@@ -8,6 +8,7 @@ use Aws\Ec2\Ec2Client;
 class Ec2ClientService
 {
     private static $_client = null;
+    private static $_config = null;
 
     public function __construct()
     {
@@ -21,15 +22,15 @@ class Ec2ClientService
      */
     private static function init(): void
     {
-        $config = require('./config/aws.php');
+        self::$_config = require('./config/aws.php');
         $credentials = [
-            'key'    => $config['credentials']['secret_key_id'],
-            'secret' => $config['credentials']['secret'],
+            'key'    => self::$_config['credentials']['secret_key_id'],
+            'secret' => self::$_config['credentials']['secret'],
         ];
 
         self::$_client = new Ec2Client([
-            'version'     => $config['client']['ec2']['version'],
-            'region'      => $config['client']['ec2']['region'],
+            'version'     => self::$_config['client']['ec2']['version'],
+            'region'      => self::$_config['client']['ec2']['region'],
             'credentials' => $credentials,
         ]);
     }
@@ -43,13 +44,22 @@ class Ec2ClientService
      */
     private static function _validate(string $security_group_id, string $target_key): bool
     {
-        if (!isset($security_group_id) || !isset($target_key)) {
+        if (!isset($security_group_id) ||
+            !isset($target_key) ||
+            !array_key_exists($target_key, self::$_config['client']['ec2']['target_key'])) {
             return false;
         }
         return true;
     }
 
-    public function exec(string $security_group_id, string $target_key)
+    /**
+     * メイン処理実行
+     *
+     * @param string $security_group_id
+     * @param string $target_key
+     * @return array
+     */
+    public function exec(string $security_group_id, string $target_key): array
     {
         return self::getListBySecurityGroupIdAndKey($security_group_id, $target_key);
     }

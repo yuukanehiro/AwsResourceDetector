@@ -14,6 +14,10 @@ return [
         'ec2' => [
             'version' => '2016-09-15',
             'region' => $_ENV['AWS_DEFAULT_REGION'],
+            // 検索対象のキー
+            'target_key' => [
+                'PrivateDnsName',
+            ],
         ],
     ],
 ];
