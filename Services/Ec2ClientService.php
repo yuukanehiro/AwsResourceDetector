@@ -12,7 +12,7 @@ class Ec2ClientService
 
     public function __construct()
     {
-        self::init();
+        self::_init();
     }
 
     /**
@@ -20,7 +20,7 @@ class Ec2ClientService
      *
      * @return void
      */
-    private static function init(): void
+    private static function _init(): void
     {
         self::$_config = require('./config/aws.php');
         $credentials = [
@@ -61,7 +61,7 @@ class Ec2ClientService
      */
     public function exec(string $security_group_id, string $target_key): array
     {
-        return self::getListBySecurityGroupIdAndKey($security_group_id, $target_key);
+        return self::_getListBySecurityGroupIdAndKey($security_group_id, $target_key);
     }
 
     /**
@@ -71,7 +71,7 @@ class Ec2ClientService
      * @param string $target_key
      * @return string
      */
-    public static function getListBySecurityGroupIdAndKey(string $security_group_id, string $target_key): array
+    private static function _getListBySecurityGroupIdAndKey(string $security_group_id, string $target_key): array
     {
         // バリデーション
         if (self::_validate($security_group_id, $target_key)) {
